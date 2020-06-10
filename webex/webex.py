@@ -10,11 +10,41 @@ import sys
 import urllib2
 import ipaddress
 
-BASE_PATH = '/etc/128technology/application-modules'
-sys.path.append(BASE_PATH)
+sys.path.append('/etc/128technology/application-modules')
 import app_module_utils
 
 URL = 'https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS13445'
+
+"""
+RIPE is kind enough to provide access to all prefixes announced per ASN, and this
+is the resource we're using here. The HTTPS query above will return JSON-formatted
+output like the following:
+
+--
+{
+    "status": "ok",
+    "server_id": "app021",
+    "status_code": 200,
+    "version": "1.2",
+    ...
+    "data": {
+        "resource": "13445",
+        "prefixes": [
+            {
+                "timelines": [
+                    {
+                        "endtime": "2020-06-10T08:00:00",
+                        "starttime": "2020-05-27T08:00:00"
+                    }
+                ],
+                "prefix": "208.253.254.0/24"
+            },
+     ...
+--
+The python script then will then collect each 'prefix' and create the appID-
+formatted JSON output as /var/run/128technology/application-module/webex.json
+
+"""
 
 MODULE_NAME = 'webex'
 SERVICE_NAME = 'WEBEX'
