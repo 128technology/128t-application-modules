@@ -5,7 +5,6 @@
 ###############################################################################
 
 import json
-import os
 import sys
 import urllib2
 import ipaddress
