@@ -1,7 +1,7 @@
 #!/usr/bin/python
 ###############################################################################
-# Netflix application module
-# 10-June-2020, Patrick Timmons
+# Dropbox application module
+# 09-November-2020, Patrick Timmons
 ###############################################################################
 
 import json
@@ -12,7 +12,7 @@ import ipaddress
 sys.path.append('/etc/128technology/application-modules')
 import app_module_utils
 
-URL = 'https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS2906'
+URL = 'https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS19679'
 
 """
 RIPE is kind enough to provide access to all prefixes announced per ASN, and this
@@ -27,7 +27,7 @@ output like the following:
     "version": "1.2",
     ...
     "data": {
-        "resource": "2609",
+        "resource": "19679",
         "prefixes": [
             {
                 "timelines": [
@@ -36,7 +36,7 @@ output like the following:
                         "starttime": "2020-05-27T08:00:00"
                     }
                 ],
-                "prefix": "208.253.254.0/24"
+                "prefix": "203.0.112.0/24"
             },
      ...
 --
@@ -45,8 +45,8 @@ formatted JSON output as /var/run/128technology/application-module/netflix.json
 
 """
 
-MODULE_NAME = 'netflix'
-SERVICE_NAME = 'NETFLIX'
+MODULE_NAME = 'dropbox'
+SERVICE_NAME = 'DROPBOX'
 
 def main():
     app_id = app_module_utils.AppIdBuilder(MODULE_NAME, 3600)
