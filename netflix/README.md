@@ -4,4 +4,6 @@ This AppID module will identify traffic associated with Netflix; adding this mod
 
 > Note: the script operates by retrieving all of the BGP prefixes advertised by AS2906, and filtering out all IPv6 prefixes.
 
+The service name for this module is **NETFLIX**. Please reference this in the `application-name` field of the service you create.
+
 Disclaimer: this is a community contributed module.

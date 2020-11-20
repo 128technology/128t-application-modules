@@ -4,4 +4,6 @@ This AppID module will identify traffic associated with Cisco Webex; adding this
 
 > Note: the script operates by retrieving all of the BGP prefixes advertised by AS13445 (the "Cisco Webex LLC" ASN), and filtering out all IPv6 prefixes.
 
+The service name for this module is **WEBEX**. Please reference this in the `application-name` field of the service you create.
+
 Disclaimer: this is a community contributed module.

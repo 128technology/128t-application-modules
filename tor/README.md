@@ -6,4 +6,6 @@ This AppID module is to identify outbound traffic destined for the TOR (The Onio
 
 This script will generate a LOT of FIB entries. (There are a lot of TOR guard nodes out there.) As of this writing, this is 5,500 unique prefixes; for each tenant that is granted access to this service, expect that many new FIB entries. Be careful about subtenants, too: this can balloon up quickly.
 
+The service name for this module is **TOR**. Please reference this in the `application-name` field of the service you create.
+
 Disclaimer: this is meant for experimentation/educational purposes only.
