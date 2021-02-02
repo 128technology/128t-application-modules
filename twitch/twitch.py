@@ -46,7 +46,7 @@ formatted JSON output as /var/run/128technology/application-module/netflix.json
 """
 
 MODULE_NAME = 'twitch'
-SERVICE_NAME = 'TWITCH.internet'
+SERVICE_NAME = 'TWITCH'
 
 def main():
     app_id = app_module_utils.AppIdBuilder(MODULE_NAME, 3600)
