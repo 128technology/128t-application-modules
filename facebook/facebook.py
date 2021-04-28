@@ -1,7 +1,7 @@
 #!/usr/bin/python
 ###############################################################################
-# Tor proxy application module
-# 29-Jan-2020, Patrick Timmons (with contributions by Joe Developer)
+# Facebook application module
+# 28-Apr-2021, Patrick Timmons (with contributions by Joe Developer)
 ###############################################################################
 
 import json
