@@ -8,6 +8,7 @@ import json
 import sys
 import urllib2
 import ipaddress
+from netaddr import *
 
 sys.path.append('/etc/128technology/application-modules')
 import app_module_utils
@@ -48,6 +49,7 @@ formatted JSON output as /var/run/128technology/application-module/webex.json
 
 MODULE_NAME = 'facebook'
 SERVICE_NAME = 'FACEBOOK'
+prefixList = []
 
 def main():
     app_id = app_module_utils.AppIdBuilder(MODULE_NAME, 3600)
@@ -58,10 +60,14 @@ def main():
         jResponse = json.loads(response.read())
         for prefixes in jResponse["data"]["prefixes"]:
             try:
-                v4prefix = ipaddress.IPv4Network(prefixes["prefix"])
-                app_id.add_entry(SERVICE_NAME, str(v4prefix))
+                cidr = IPNetwork(prefixes["prefix"])
+                if cidr.version == 4:
+                    prefixList.append(cidr)
             except:
                 continue
+    mergeList = cidr_merge(prefixList)
+    for cidr in mergeList:
+        app_id.add_entry(SERVICE_NAME, str(cidr))
     app_id.write_to_disk()
 
 if __name__ == '__main__':
