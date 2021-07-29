@@ -6,7 +6,7 @@
 
 import json
 import sys
-import urllib2
+import urllib3
 import ipaddress
 
 sys.path.append('/etc/128technology/application-modules')
@@ -17,7 +17,7 @@ URL = 'https://all.zendesk.com/ips'
 """
 Zendesk conveniently offers a public API that lets you retrieve the list of
 IP addresses that they use for ingress traffic and egress traffic. For the
-purposes of this application module we are only concerning ourselves with 
+purposes of this application module we are only concerning ourselves with
 their "ingress" traffic. (The "ingress" perspective is theirs.)
 
 More information at the following links:
@@ -32,16 +32,17 @@ SERVICE_NAME = 'ZENDESK'
 def main():
     app_id = app_module_utils.AppIdBuilder(MODULE_NAME, 3600)
 
-    response = urllib2.urlopen(URL)
-    jResponse = json.loads(response.read())
-    for prefix in jResponse["ips"]["ingress"]["all"]:
-        try:
-            v4prefix = ipaddress.IPv4Network(prefix)
-            app_id.add_entry(SERVICE_NAME, str(v4prefix))
-        except:
-            continue
+    http = urllib3.PoolManager()
+    response = http.request('GET', URL)
+    if response.status == 200:
+        jResponse = json.loads(response.data.decode('utf-8'))
+        for prefix in jResponse["ips"]["ingress"]["all"]:
+            try:
+                v4prefix = ipaddress.IPv4Network(prefix)
+                app_id.add_entry(SERVICE_NAME, str(v4prefix))
+            except:
+                continue
     app_id.write_to_disk()
 
 if __name__ == '__main__':
     main()
-
