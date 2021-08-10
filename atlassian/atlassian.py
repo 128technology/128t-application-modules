@@ -33,9 +33,9 @@ def main():
     response = http.request('GET', URL)
     if response.status == 200:
         jResponse = json.loads(response.data.decode('utf-8'))
-        for prefix in jResponse["items"]["cidr"]:
+        for prefix in jResponse["items"]:
             try:
-                v4prefix = ipaddress.IPv4Network(prefix)
+                v4prefix = ipaddress.IPv4Network(prefix["cidr"])
                 app_id.add_entry(SERVICE_NAME, str(v4prefix))
             except:
                 continue
