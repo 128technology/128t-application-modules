@@ -15,11 +15,11 @@ import app_module_utils
 URL = 'https://ip-ranges.amazonaws.com/ip-ranges.json'
 
 """
-Oracle conveniently offers a public API that lets you retrieve the list of
+Amazon conveniently offers a public API that lets you retrieve the list of
 IP addresses that they use for ingress traffic and egress traffic.
 
-More information at the following links:
-https://docs.oracle.com/en-us/iaas/Content/General/Concepts/addressranges.htm
+More information at the following link(s):
+https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html
 
 """
 
