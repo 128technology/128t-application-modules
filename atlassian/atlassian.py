@@ -1,7 +1,7 @@
 #!/usr/bin/python
 ###############################################################################
-# Zendesk application module
-# 29-July-2021, Patrick Timmons
+# Atlassian application module
+# 10-August-2021, Patrick Timmons
 ###############################################################################
 
 import json
