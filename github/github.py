@@ -33,6 +33,7 @@ def main():
     if response.status == 200:
         jResponse = json.loads(response.data.decode('utf-8'))
         for section in ['hooks', 'web', 'api', 'git', 'packages', 'importer', 'actions', 'dependabot']:
+            print(jResponse)
             for prefix in jResponse[section]:
                 try:
                     v4prefix = ipaddress.IPv4Network(prefix)
