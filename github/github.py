@@ -42,6 +42,8 @@ def main():
                 except:
                     continue
 
+    # this next section deduplicates the list, since Github uses the same CIDR for different services
+    # so there are various prefixes that appear more than once.
     if len(prefixes) > 0:
         prefixes = list(dict.fromkeys(prefixes))
     for prefix in prefixes:
