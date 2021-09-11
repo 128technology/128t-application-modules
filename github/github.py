@@ -31,18 +31,22 @@ def main():
     user_agent = {'User-Agent': 'SSR Github AppID Module; github.com/128technology/128t-application-modules'}
     http = urllib3.PoolManager()
     response = http.request('GET', URL, headers=user_agent)
-    print(response.data.decode('utf-8'))
+    prefixes = []
     if response.status == 200:
         jResponse = json.loads(response.data.decode('utf-8'))
-        print(jResponse)
         for section in ['hooks', 'web', 'api', 'git', 'packages', 'importer', 'actions', 'dependabot']:
-            print(jResponse)
             for prefix in jResponse[section]:
                 try:
                     v4prefix = ipaddress.IPv4Network(prefix)
-                    app_id.add_entry("GITHUB", str(v4prefix))
+                    prefixes.append(v4prefix)
                 except:
                     continue
+
+    if len(prefixes) > 0:
+        prefixes = list(dict.fromkeys(prefixes))
+    for prefix in prefixes:
+        app_id.add_entry("GITHUB", str(v4prefix))
+
     app_id.write_to_disk()
 
 if __name__ == '__main__':
