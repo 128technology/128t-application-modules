@@ -29,6 +29,7 @@ def main():
     app_id = app_module_utils.AppIdBuilder(MODULE_NAME, 86400)
 
     user_agent = {'User-Agent': 'SSR Github AppID Module; github.com/128technology/128t-application-modules'}
+    http = urllib3.PoolManager()
     response = http.request('GET', URL, headers=user_agent)
     print(response.data.decode('utf-8'))
     if response.status == 200:
