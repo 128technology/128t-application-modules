@@ -30,8 +30,10 @@ def main():
 
     http = urllib3.PoolManager()
     response = http.request('GET', URL)
+    print(response.data.decode('utf-8'))
     if response.status == 200:
         jResponse = json.loads(response.data.decode('utf-8'))
+        print(jResponse)
         for section in ['hooks', 'web', 'api', 'git', 'packages', 'importer', 'actions', 'dependabot']:
             print(jResponse)
             for prefix in jResponse[section]:
