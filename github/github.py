@@ -35,7 +35,7 @@ def main():
         for section in ['hooks', 'web', 'api', 'git', 'packages', 'importer', 'actions', 'dependabot']:
             for prefix in jResponse[section]:
                 try:
-                    v4prefix = ipaddress.IPv4Network(prefix["ip_prefix"])
+                    v4prefix = ipaddress.IPv4Network(prefix)
                     app_id.add_entry("GITHUB", str(v4prefix))
                 except:
                     continue
