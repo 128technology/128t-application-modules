@@ -29,8 +29,8 @@ def main():
         matches = re.search("^([0-9.]+)\|(.*?)\|([0-9]+)\|([0-9]+)\|([A-Z]+)\|", line)
         if matches is not None:
             flags = matches.group(5)
-            if "E" in flags or \
-               "X" in flags:
+            if "G" not in flags:
+                # skip anything but guard nodes
                 continue
             ip = matches.group(1)
             port = matches.group(3)
