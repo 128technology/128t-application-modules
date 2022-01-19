@@ -15,13 +15,14 @@ BASE_PATH = '/etc/128technology/application-modules'
 sys.path.append(BASE_PATH)
 import app_module_utils
 
-URL1 = 'https://assets.zoom.us/docs/ipranges/Zoom.txt'
-URL2 = 'https://assets.zoom.us/docs/ipranges/ZoomMeetings.txt'
-URL3 = 'https://assets.zoom.us/docs/ipranges/ZoomCRC.txt'
-URL4 = 'https://assets.zoom.us/docs/ipranges/ZoomPhone.txt'
-URL5 = 'https://assets.zoom.us/docs/ipranges/ZoomCDN.txt'
+URLs = [
+        'https://assets.zoom.us/docs/ipranges/Zoom.txt',
+        'https://assets.zoom.us/docs/ipranges/ZoomMeetings.txt',
+        'https://assets.zoom.us/docs/ipranges/ZoomCRC.txt',
+        'https://assets.zoom.us/docs/ipranges/ZoomPhone.txt',
+        'https://assets.zoom.us/docs/ipranges/ZoomCDN.txt'
+       ]
 
-URLs = [URL1, URL2, URL3, URL4, URL5]
 ipv4 = "^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$"
 
 MODULE_NAME = 'zoom'
