@@ -1,8 +1,7 @@
 #!/usr/bin/python
 ###############################################################################
-# Tor proxy application module
-# 29-Jan-2020, Patrick Timmons (with contributions by Joe Developer)
-# 22-Jan-2022, updated refresh time from 3600 to 14400
+# Tor proxy application module (full node list)
+# 22-Jan-2022, Patrick Timmons (with contributions by Joe Developer)
 ###############################################################################
 
 import json
@@ -17,7 +16,7 @@ import app_module_utils
 
 URL = 'https://www.dan.me.uk/tornodes'
 
-MODULE_NAME = 'tor'
+MODULE_NAME = 'tor-full'
 SERVICE_NAME = 'TOR'
 
 def main():
@@ -30,9 +29,6 @@ def main():
         matches = re.search("^([0-9.]+)\|(.*?)\|([0-9]+)\|([0-9]+)\|([A-Z]+)\|", line)
         if matches is not None:
             flags = matches.group(5)
-            if "G" not in flags:
-                # skip anything but guard nodes
-                continue
             ip = matches.group(1)
             port = matches.group(3)
             port_range = [ app_module_utils.AppIdBuilder.create_port_range(port, port) ]
