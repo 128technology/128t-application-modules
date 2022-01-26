@@ -34,18 +34,14 @@ def main():
             # flags = matches.group(5)
             ip = matches.group(1)
             if ip in prefix_list.keys():
-                prefix_list[ip]['ports'].append(app_module_utils.AppIdBuilder.create_port_range(
-                                                matches.group(3), matches.group(3)))
+                prefix_list[ip].append(app_module_utils.AppIdBuilder.create_port_range(
+                                       matches.group(3), matches.group(3)))
             else:
-                prefix_list[ip]['ports'] = [ app_module_utils.AppIdBuilder.create_port_range(
-                                                matches.group(3), matches.group(3)) ]
+                prefix_list[ip] = [ app_module_utils.AppIdBuilder.create_port_range(
+                                    matches.group(3), matches.group(3)) ]
 
-    for address in prefix_list.keys():
-        for port in prefix_list[address]['ports']:
-            # port_range = [ app_module_utils.AppIdBuilder.create_port_range(port, port) ]
-
-            app_id.add_entry(SERVICE_NAME, ip + "/32", "tcp", prefix_list[address]['ports'])
-            app_id.error = ''
+    for ip in prefix_list.keys():
+        app_id.add_entry(SERVICE_NAME, ip + "/32", "tcp", prefix_list[ip])
 #        else:
 #            app_id.error = 'No mappings found. Perhaps you are requesting too quickly?'
 
