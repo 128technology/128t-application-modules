@@ -21,6 +21,8 @@ SERVICE_NAME = 'TOR'
 
 def main():
     app_id = app_module_utils.AppIdBuilder(MODULE_NAME, 14400)
+    changed = False
+    prefix_list = {}
 
     response = urllib2.urlopen(URL)
     lines = response.readlines()
@@ -28,17 +30,27 @@ def main():
     for line in lines:
         matches = re.search("^([0-9.]+)\|(.*?)\|([0-9]+)\|([0-9]+)\|([A-Z]+)\|", line)
         if matches is not None:
-            flags = matches.group(5)
+            changed = True
+            # flags = matches.group(5)
             ip = matches.group(1)
-            port = matches.group(3)
-            port_range = [ app_module_utils.AppIdBuilder.create_port_range(port, port) ]
+            if ip in prefix_list.keys():
+                prefix_list[ip]['ports'].append(app_module_utils.AppIdBuilder.create_port_range(
+                                                matches.group(3), matches.group(3)))
+            else:
+                prefix_list[ip]['ports'] = [ app_module_utils.AppIdBuilder.create_port_range(
+                                                matches.group(3), matches.group(3)) ]
 
-            app_id.add_entry(SERVICE_NAME, ip + "/32", "tcp", port_range)
+    for address in prefix_list.keys():
+        for port in prefix_list[address]['ports']:
+            # port_range = [ app_module_utils.AppIdBuilder.create_port_range(port, port) ]
+
+            app_id.add_entry(SERVICE_NAME, ip + "/32", "tcp", prefix_list[address]['ports'])
             app_id.error = ''
 #        else:
 #            app_id.error = 'No mappings found. Perhaps you are requesting too quickly?'
 
-    app_id.write_to_disk()
+    if changed:
+        app_id.write_to_disk()
 
 if __name__ == '__main__':
     main()
